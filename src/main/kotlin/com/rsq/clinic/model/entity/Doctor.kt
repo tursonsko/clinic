@@ -1,5 +1,6 @@
 package com.rsq.clinic.model.entity
 
+import com.rsq.clinic.model.dto.DoctorResponse
 import org.hibernate.Hibernate
 import java.util.*
 import javax.persistence.*
@@ -13,9 +14,9 @@ data class Doctor(
     @GeneratedValue
     val id: UUID? = null,
 
-    val name: String,
+    val firstName: String,
 
-    val surname: String,
+    val lastName: String,
 
     val specialization: String,
 
@@ -23,6 +24,15 @@ data class Doctor(
     val visits: List<Visit> = mutableListOf()
 
 ) {
+
+    fun toDoctorData() =
+        DoctorResponse(
+            id = id,
+            firstName = firstName,
+            lastName = lastName,
+            specialization = specialization
+        )
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (other == null || Hibernate.getClass(this) != Hibernate.getClass(other)) return false
@@ -33,8 +43,7 @@ data class Doctor(
 
     override fun hashCode(): Int = javaClass.hashCode()
 
-    @Override
     override fun toString(): String {
-        return this::class.simpleName + "(id = $id , name = $name , surname = $surname , specialization = $specialization )"
+        return "Doctor(id=$id, firstName='$firstName', lastName='$lastName', specialization='$specialization', visits=$visits)"
     }
 }

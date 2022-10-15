@@ -1,29 +1,35 @@
 package com.rsq.clinic.service
 
+import com.rsq.clinic.advice.PatientNotCreatedException
 import com.rsq.clinic.advice.PatientNotFoundException
 import com.rsq.clinic.model.dto.PatientCreateRequest
 import com.rsq.clinic.model.dto.PatientResponse
 import com.rsq.clinic.model.dto.PatientUpdateRequest
-import com.rsq.clinic.model.entity.Patient
 import com.rsq.clinic.repository.PatientRepository
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
-import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
-import org.springframework.web.server.ResponseStatusException
 import java.util.*
 
 @Service
 class PatientService(
     private val patientRepository: PatientRepository
 ) {
+
     /**
      * Method creating single Patient
      * @return PatientResponse
+     * @throws PatientNotCreatedException
      */
-    fun createPatient(createRequest: PatientCreateRequest) =
-        patientRepository.save(createRequest.toPatientEntity()).toPatientData()
+    fun createPatient(createRequest: PatientCreateRequest): PatientResponse {
+        createRequest.checkRequestFields()
+        try {
+            return patientRepository.save(createRequest.toPatientEntity()).toPatientData()
+        } catch (ex: Exception) {
+            throw PatientNotCreatedException("Patient not created")
+        }
+    }
 
     fun getPatient(patientId: UUID): PatientResponse {
         try {
@@ -39,7 +45,7 @@ class PatientService(
             PageRequest.of(
                 pageNumber,
                 pageSize,
-                Sort.by(LAST_NAME).ascending()
+                Sort.by(LAST_NAME).and(Sort.by(FIRST_NAME))
             )
         ).map { it.toPatientData() }
     }
@@ -65,6 +71,7 @@ class PatientService(
         patientRepository.deleteById(patientId)
 
     companion object {
+        const val FIRST_NAME = "firstName"
         const val LAST_NAME = "lastName"
     }
 }

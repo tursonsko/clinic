@@ -11,22 +11,65 @@ class ExceptionControllerAdvice {
 
     @ExceptionHandler
     fun handleIllegalStateException(ex: IllegalStateException) =
-        ResponseEntity(ErrorMessageModel(HttpStatus.BAD_REQUEST.value(), ex.message, Instant.now()),
+        ResponseEntity(ErrorSingleMessageModel(HttpStatus.BAD_REQUEST.value(), ex.message, Instant.now()),
             HttpStatus.BAD_REQUEST
         )
 
     @ExceptionHandler
-    fun handleRuntimeException(ex: PatientNotFoundException) =
-        ResponseEntity(ErrorMessageModel(HttpStatus.BAD_REQUEST.value(), ex.message, Instant.now()),
+    fun handlePatientNotFoundException(ex: PatientNotFoundException) =
+        ResponseEntity(ErrorSingleMessageModel(HttpStatus.NOT_FOUND.value(), ex.message, Instant.now()),
+            HttpStatus.NOT_FOUND
+        )
+
+    @ExceptionHandler
+    fun handlePatientNotCreatedException(ex: PatientNotCreatedException) =
+        ResponseEntity(ErrorSingleMessageModel(HttpStatus.BAD_REQUEST.value(), ex.message, Instant.now()),
+            HttpStatus.BAD_REQUEST
+        )
+
+    @ExceptionHandler
+    fun handleWrongPatientDataException(ex: WrongPatientDataException) =
+        ResponseEntity(ErrorMultipleMessagesModel(HttpStatus.BAD_REQUEST.value(), ex.messages, Instant.now()),
+            HttpStatus.BAD_REQUEST
+        )
+
+    @ExceptionHandler
+    fun handleDoctorNotFoundException(ex: DoctorNotFoundException) =
+        ResponseEntity(ErrorSingleMessageModel(HttpStatus.NOT_FOUND.value(), ex.message, Instant.now()),
+            HttpStatus.NOT_FOUND
+        )
+
+    @ExceptionHandler
+    fun handleDoctorNotCreatedException(ex: DoctorNotCreatedException) =
+        ResponseEntity(ErrorSingleMessageModel(HttpStatus.BAD_REQUEST.value(), ex.message, Instant.now()),
+            HttpStatus.BAD_REQUEST
+        )
+
+    @ExceptionHandler
+    fun handleWrongDoctorDataException(ex: WrongDoctorDataException) =
+        ResponseEntity(ErrorMultipleMessagesModel(HttpStatus.BAD_REQUEST.value(), ex.messages, Instant.now()),
             HttpStatus.BAD_REQUEST
         )
 }
 
 class PatientNotFoundException(message: String) : RuntimeException(message)
+class PatientNotCreatedException(message: String) : RuntimeException(message)
+class WrongPatientDataException(val messages: List<String>) : RuntimeException()
+
+class DoctorNotFoundException(message: String) : RuntimeException(message)
+class DoctorNotCreatedException(message: String) : RuntimeException(message)
+class WrongDoctorDataException(val messages: List<String>) : RuntimeException()
 
 
-data class ErrorMessageModel(
+
+data class ErrorSingleMessageModel(
     val status: Int? = null,
     val message: String? = null,
+    val time: Instant? = null
+)
+
+data class ErrorMultipleMessagesModel(
+    val status: Int? = null,
+    val messages: List<String?>? = null,
     val time: Instant? = null
 )

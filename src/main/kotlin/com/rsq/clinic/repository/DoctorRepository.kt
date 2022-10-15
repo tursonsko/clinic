@@ -7,4 +7,6 @@ import java.util.*
 
 @Repository
 interface DoctorRepository : JpaRepository<Doctor, UUID> {
+    fun findDoctorById(doctorId: UUID): Doctor
+
 }

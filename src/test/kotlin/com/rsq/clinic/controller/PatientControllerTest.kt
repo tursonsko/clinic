@@ -6,7 +6,9 @@ import com.rsq.clinic.model.dto.PatientResponse
 import com.rsq.clinic.model.dto.PatientUpdateRequest
 import com.rsq.clinic.model.entity.Patient
 import com.rsq.clinic.repository.PatientRepository
+import com.rsq.clinic.testutils.RestResponsePage
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.beBlank
@@ -26,6 +28,10 @@ class PatientControllerTest(
     mapper: ObjectMapper,
     patientRepository: PatientRepository,
 ) : FunSpec({
+
+    afterTest {
+        patientRepository.deleteAll()
+    }
 
     test("should create single patient") {
         //given
@@ -119,6 +125,60 @@ class PatientControllerTest(
             .andReturn()
 
         result.response.contentAsString should beBlank()
+    }
+
+    test("should find all patients sorted and paginated and return only 4 of 5 caused by pageSize limit") {
+
+        //given
+        val patientList = listOf(
+            Patient(
+                firstName = "John",
+                lastName = "Doe",
+                address = "Gdansk"
+            ),
+            Patient(
+                firstName = "Adam",
+                lastName = "Zoe",
+                address = "Gdansk"
+            ),
+            Patient(
+                firstName = "Zinedine",
+                lastName = "Yoe",
+                address = "Gdansk"
+            ),
+            Patient(
+                firstName = "Freddie",
+                lastName = "Yoe",
+                address = "Gdansk"
+            ),
+            Patient(
+                firstName = "John",
+                lastName = "Soe",
+                address = "Gdansk"
+            )
+        )
+        patientRepository.saveAll(patientList)
+
+        //when
+        val result = mvc.perform(get("/api/patient")
+            .param("pageNumber", "0")
+            .param("pageSize", "4")
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk)
+            .andReturn()
+
+        //then
+        val responseBody = mapper.readValue(result.response.contentAsString, RestResponsePage::class.java)
+        println(responseBody.content)
+        val firstElementFromContentList = responseBody.content.elementAt(0) as LinkedHashMap<*, *>
+        val lastElementFromContentList = responseBody.content.elementAt(3) as LinkedHashMap<*, *>
+
+        responseBody.content.size shouldBeExactly 4
+        firstElementFromContentList["lastName"] shouldBe "Doe"
+        lastElementFromContentList["firstName"] shouldBe "Zinedine"
+        lastElementFromContentList["lastName"] shouldBe "Yoe"
+
+
     }
 
 })
