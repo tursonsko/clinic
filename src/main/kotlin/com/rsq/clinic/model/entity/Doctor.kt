@@ -18,15 +18,15 @@ data class Doctor(
     @Column(name = "specialization", nullable = false)
     val specialization: String,
 
-    @OneToMany(mappedBy = "doctor", cascade = [CascadeType.REMOVE], fetch = FetchType.LAZY)
-    val visits: List<Visit> = mutableListOf()
-
 ) {
 
     @Id
     @Column(name = "id", length = 16, unique = true, nullable = false)
     @GeneratedValue
     val id: UUID? = null
+
+    @OneToMany(mappedBy = "doctor", cascade = [CascadeType.REMOVE], fetch = FetchType.LAZY)
+    val visits: List<Visit> = mutableListOf()
 
     fun toDoctorData() =
         DoctorResponse(
