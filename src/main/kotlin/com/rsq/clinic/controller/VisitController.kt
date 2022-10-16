@@ -29,11 +29,11 @@ class VisitController(
     @PutMapping("/changeTime")
     fun changeVisitTime(
         @RequestBody updateRequest: VisitUpdateRequest
-    ): ResponseEntity<VisitResponse> =
-        ResponseEntity(
-            visitService.changeVisitTime(updateRequest),
-            HttpStatus.OK
-        )
+    ): ResponseEntity<VisitResponse> {
+        visitService.changeVisitTime(updateRequest)
+        return ResponseEntity.ok().build()
+
+    }
 
     @DeleteMapping("/{visitId}")
     fun deleteVisit(

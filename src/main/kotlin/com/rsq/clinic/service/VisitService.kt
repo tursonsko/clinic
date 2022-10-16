@@ -48,7 +48,7 @@ class VisitService(
     //todo
     fun changeVisitTime(
         updateRequest: VisitUpdateRequest
-    ): VisitResponse {
+    ) {
         val visitId = updateRequest.visitId
         val visitDate = updateRequest.visitDate
         val visitTime = updateRequest.visitTime
@@ -60,7 +60,7 @@ class VisitService(
         }
 
         try {
-            return visitRepository.save(visitToUpdate.copy(visitTime = visitTime)).toVisitData()
+            visitRepository.updateVisitTime(visitTime, visitId)
         } catch (ex: Exception) {
             throw VisitNotUpdatedException("Visit time not changed")
         }
