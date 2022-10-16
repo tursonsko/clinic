@@ -9,5 +9,5 @@ Almost everything in logic except organizationId parameter
 
 ###Todo:
 1. logger
-2. more tests :)
+2. unit tests
 3. simulate multitenant application (add organizartionId parameter)
