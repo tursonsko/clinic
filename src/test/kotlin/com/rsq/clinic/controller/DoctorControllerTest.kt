@@ -132,7 +132,7 @@ class DoctorControllerTest(
         result.response.contentAsString should beBlank()
     }
 
-    test("should find all doctors sorted and paginated nd return 4 of 5 caused by pageSize limit") {
+    test("should find all doctors sorted and paginated and return 4 of 5 caused by pageSize limit") {
 
         //given
         val doctorsList = listOf(
@@ -174,7 +174,6 @@ class DoctorControllerTest(
             .andReturn()
         //then
         val responseBody = mapper.readValue(result.response.contentAsString, RestResponsePage::class.java)
-        println(responseBody.content)
         val firstElementFromContentList = responseBody.content.elementAt(0) as LinkedHashMap<*, *>
         val lastElementFromContentList = responseBody.content.elementAt(3) as LinkedHashMap<*, *>
 

@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 class PatientControllerTest(
     mvc: MockMvc,
     mapper: ObjectMapper,
-    patientRepository: PatientRepository,
+    patientRepository: PatientRepository
 ) : FunSpec({
 
     afterTest {
@@ -169,7 +169,6 @@ class PatientControllerTest(
 
         //then
         val responseBody = mapper.readValue(result.response.contentAsString, RestResponsePage::class.java)
-        println(responseBody.content)
         val firstElementFromContentList = responseBody.content.elementAt(0) as LinkedHashMap<*, *>
         val lastElementFromContentList = responseBody.content.elementAt(3) as LinkedHashMap<*, *>
 
@@ -177,7 +176,6 @@ class PatientControllerTest(
         firstElementFromContentList["lastName"] shouldBe "Doe"
         lastElementFromContentList["firstName"] shouldBe "Zinedine"
         lastElementFromContentList["lastName"] shouldBe "Yoe"
-
 
     }
 

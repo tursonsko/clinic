@@ -25,7 +25,7 @@ data class Doctor(
     @GeneratedValue
     val id: UUID? = null
 
-    @OneToMany(mappedBy = "doctor", cascade = [CascadeType.REMOVE], fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "doctor", cascade = [CascadeType.REMOVE], fetch = FetchType.EAGER)
     val visits: List<Visit> = mutableListOf()
 
     fun toDoctorData() =

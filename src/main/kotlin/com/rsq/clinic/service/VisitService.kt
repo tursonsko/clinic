@@ -35,7 +35,7 @@ class VisitService(
         patientId: UUID,
         doctorId: UUID,
     ): VisitResponse {
-        val doctor = doctorRepository.findDoctorByIdWithVisits(doctorId)
+        val doctor = doctorRepository.findDoctorById(doctorId)
         checkDoctorAvailability(doctor, createRequest.visitDate, createRequest.visitTime)
         try {
             val patient = patientRepository.findPatientById(patientId)
@@ -84,7 +84,6 @@ class VisitService(
         } catch (ex: Exception) {
             throw VisitNotFoundException("Something went wrong while searching for visits...")
         }
-
     }
 
     fun deleteVisit(visitId: UUID) =
