@@ -121,7 +121,7 @@ class PatientControllerTest(
         //when & then
         val result = mvc.perform(delete("/api/patient/$savedPatientId")
             .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk)
+            .andExpect(status().isNoContent)
             .andReturn()
 
         result.response.contentAsString should beBlank()

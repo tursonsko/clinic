@@ -16,7 +16,7 @@ class DoctorController(
     private val doctorService: DoctorService
 ) {
     @PostMapping
-    fun createPatient(
+    fun createDoctor(
         @RequestBody createRequest: DoctorCreateRequest
     ): ResponseEntity<DoctorResponse> =
         ResponseEntity(
@@ -25,7 +25,7 @@ class DoctorController(
         )
 
     @GetMapping("/{doctorId}")
-    fun getPatient(
+    fun getDoctor(
         @PathVariable doctorId: UUID
     ): ResponseEntity<DoctorResponse> =
         ResponseEntity(
