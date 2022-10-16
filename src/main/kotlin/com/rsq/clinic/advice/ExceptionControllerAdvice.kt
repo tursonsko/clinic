@@ -58,6 +58,12 @@ class ExceptionControllerAdvice {
         )
 
     @ExceptionHandler
+    fun handleVisitNotFoundException(ex: VisitNotFoundException) =
+        ResponseEntity(ErrorSingleMessageModel(HttpStatus.BAD_REQUEST.value(), ex.message, Instant.now()),
+            HttpStatus.BAD_REQUEST
+        )
+
+    @ExceptionHandler
     fun handleVisitNotCreatedException(ex: VisitNotCreatedException) =
         ResponseEntity(ErrorSingleMessageModel(HttpStatus.BAD_REQUEST.value(), ex.message, Instant.now()),
             HttpStatus.BAD_REQUEST
@@ -65,6 +71,12 @@ class ExceptionControllerAdvice {
 
     @ExceptionHandler
     fun handleVisitNotUpdatedException(ex: VisitNotUpdatedException) =
+        ResponseEntity(ErrorSingleMessageModel(HttpStatus.BAD_REQUEST.value(), ex.message, Instant.now()),
+            HttpStatus.BAD_REQUEST
+        )
+
+    @ExceptionHandler
+    fun handleDeleteOperationException(ex: DeleteOperationException) =
         ResponseEntity(ErrorSingleMessageModel(HttpStatus.BAD_REQUEST.value(), ex.message, Instant.now()),
             HttpStatus.BAD_REQUEST
         )
@@ -79,8 +91,11 @@ class DoctorNotCreatedException(message: String) : RuntimeException(message)
 class WrongDoctorDataException(val messages: List<String>) : RuntimeException()
 class DoctorUnavailableAtThisTime(message: String) : RuntimeException(message)
 
+class VisitNotFoundException(message: String) : RuntimeException(message)
 class VisitNotCreatedException(message: String) : RuntimeException(message)
 class VisitNotUpdatedException(message: String) : RuntimeException(message)
+
+class DeleteOperationException(message: String) : RuntimeException(message)
 
 
 

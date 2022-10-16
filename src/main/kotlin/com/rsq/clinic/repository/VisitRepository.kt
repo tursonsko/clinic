@@ -21,10 +21,4 @@ interface VisitRepository : JpaRepository<Visit, UUID>, JpaSpecificationExecutor
     @Query("UPDATE visit v SET v.visitTime = ?1 WHERE v.id = ?2")
     fun updateVisitTime(visitTime: LocalTime, visitId: UUID)
 
-
-/*    fun findVisitByIdAndVisitDateAndVisitTime(
-        visitId: UUID?,
-        visitDate: LocalDate?,
-        visitTime: LocalTime?
-    ): Visit*/
 }

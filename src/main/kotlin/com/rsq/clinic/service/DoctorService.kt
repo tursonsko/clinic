@@ -1,5 +1,6 @@
 package com.rsq.clinic.service
 
+import com.rsq.clinic.advice.DeleteOperationException
 import com.rsq.clinic.advice.DoctorNotCreatedException
 import com.rsq.clinic.advice.DoctorNotFoundException
 import com.rsq.clinic.model.dto.DoctorCreateRequest
@@ -38,16 +39,6 @@ class DoctorService(
         }
     }
 
-    //todo remove?
-    fun getDoctorWithVisitList(doctorId: UUID): DoctorResponse {
-        try {
-            return doctorRepository.findDoctorByIdWithVisits(doctorId).toDoctorDataWithVisits()
-        } catch (ex: Exception) {
-            throw DoctorNotFoundException("Doctor not found for provided ID")
-        }
-    }
-
-    //todo remember about visits - lazy ex...
     fun getAllDoctors(pageNumber: Int, pageSize: Int): Page<DoctorResponse> {
         return doctorRepository.findAll(
             PageRequest.of(
@@ -75,8 +66,13 @@ class DoctorService(
 
     }
 
-    fun deleteDoctor(doctorId: UUID) =
-        doctorRepository.deleteById(doctorId)
+    fun deleteDoctor(doctorId: UUID) {
+        try {
+            doctorRepository.deleteById(doctorId)
+        } catch (ex: Exception) {
+            throw DeleteOperationException("Something went wrong while deleting doctor")
+        }
+    }
 
     companion object {
         const val FIRST_NAME = "firstName"

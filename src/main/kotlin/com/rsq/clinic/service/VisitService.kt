@@ -1,8 +1,6 @@
 package com.rsq.clinic.service
 
-import com.rsq.clinic.advice.DoctorUnavailableAtThisTime
-import com.rsq.clinic.advice.VisitNotCreatedException
-import com.rsq.clinic.advice.VisitNotUpdatedException
+import com.rsq.clinic.advice.*
 import com.rsq.clinic.model.dto.VisitCreateRequest
 import com.rsq.clinic.model.dto.VisitResponse
 import com.rsq.clinic.model.dto.VisitUpdateRequest
@@ -10,6 +8,10 @@ import com.rsq.clinic.model.entity.Doctor
 import com.rsq.clinic.repository.DoctorRepository
 import com.rsq.clinic.repository.PatientRepository
 import com.rsq.clinic.repository.VisitRepository
+import com.rsq.clinic.repository.getVisitWithOptionalPatientIdQuery
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.PageRequest
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import java.time.LocalDate
 import java.time.LocalTime
@@ -45,7 +47,6 @@ class VisitService(
         }
     }
 
-    //todo
     fun changeVisitTime(
         updateRequest: VisitUpdateRequest
     ) {
@@ -66,9 +67,32 @@ class VisitService(
         }
     }
 
-    //todo try/catch for DELETE operations (?) - some validation
+    fun getAllVisitsWithOptionalPatientId(
+        patientId: UUID?,
+        pageNumber: Int,
+        pageSize: Int
+    ): Page<VisitResponse> {
+        try {
+            return visitRepository.findAll(
+                getVisitWithOptionalPatientIdQuery(patientId),
+                PageRequest.of(
+                    pageNumber,
+                    pageSize,
+                    Sort.by(VISIT_DATE).and(Sort.by(VISIT_TIME))
+                )
+            ).map { it.toVisitData() }
+        } catch (ex: Exception) {
+            throw VisitNotFoundException("Something went wrong while searching for visits...")
+        }
+
+    }
+
     fun deleteVisit(visitId: UUID) =
-        visitRepository.deleteById(visitId)
+        try {
+            visitRepository.deleteById(visitId)
+        } catch (ex: Exception) {
+            throw DeleteOperationException("Something went wrong while deleting visit")
+        }
 
     private fun checkDoctorAvailability(
         doctor: Doctor,
@@ -84,5 +108,10 @@ class VisitService(
             }
         }
         return true
+    }
+
+    companion object {
+        const val VISIT_DATE = "visitDate"
+        const val VISIT_TIME = "visitTime"
     }
 }

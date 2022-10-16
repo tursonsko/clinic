@@ -1,5 +1,6 @@
 package com.rsq.clinic.service
 
+import com.rsq.clinic.advice.DeleteOperationException
 import com.rsq.clinic.advice.PatientNotCreatedException
 import com.rsq.clinic.advice.PatientNotFoundException
 import com.rsq.clinic.model.dto.PatientCreateRequest
@@ -39,7 +40,6 @@ class PatientService(
         }
     }
 
-    //todo remember about visits - lazy ex...
     fun getAllPatients(pageNumber: Int, pageSize: Int): Page<PatientResponse> {
         return patientRepository.findAll(
             PageRequest.of(
@@ -67,8 +67,13 @@ class PatientService(
 
     }
 
-    fun deletePatient(patientId: UUID) =
-        patientRepository.deleteById(patientId)
+    fun deletePatient(patientId: UUID) {
+        try {
+            patientRepository.deleteById(patientId)
+        } catch (ex: Exception) {
+            throw DeleteOperationException("Something went wrong while deleting patient")
+        }
+    }
 
     companion object {
         const val FIRST_NAME = "firstName"

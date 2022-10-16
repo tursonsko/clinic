@@ -36,8 +36,8 @@ class PatientController(
 
     @GetMapping()
     fun getAllPatients(
-        @RequestParam pageNumber: Int,
-        @RequestParam pageSize: Int
+        @RequestParam(required = false, defaultValue = "0") pageNumber: Int,
+        @RequestParam(required = false, defaultValue = Int.MAX_VALUE.toString()) pageSize: Int
     ): ResponseEntity<Page<PatientResponse>> =
         ResponseEntity(
             patientService.getAllPatients(pageNumber, pageSize),
@@ -59,6 +59,6 @@ class PatientController(
         @PathVariable patientId: UUID
     ): ResponseEntity<Void> {
         patientService.deletePatient(patientId)
-        return ResponseEntity.ok().build()
+        return ResponseEntity.noContent().build()
     }
 }
