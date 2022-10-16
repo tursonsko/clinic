@@ -50,6 +50,24 @@ class ExceptionControllerAdvice {
         ResponseEntity(ErrorMultipleMessagesModel(HttpStatus.BAD_REQUEST.value(), ex.messages, Instant.now()),
             HttpStatus.BAD_REQUEST
         )
+
+    @ExceptionHandler
+    fun handleDoctorUnavailableAtThisTime(ex: DoctorUnavailableAtThisTime) =
+        ResponseEntity(ErrorSingleMessageModel(HttpStatus.BAD_REQUEST.value(), ex.message, Instant.now()),
+            HttpStatus.BAD_REQUEST
+        )
+
+    @ExceptionHandler
+    fun handleVisitNotCreatedException(ex: VisitNotCreatedException) =
+        ResponseEntity(ErrorSingleMessageModel(HttpStatus.BAD_REQUEST.value(), ex.message, Instant.now()),
+            HttpStatus.BAD_REQUEST
+        )
+
+    @ExceptionHandler
+    fun handleVisitNotUpdatedException(ex: VisitNotUpdatedException) =
+        ResponseEntity(ErrorSingleMessageModel(HttpStatus.BAD_REQUEST.value(), ex.message, Instant.now()),
+            HttpStatus.BAD_REQUEST
+        )
 }
 
 class PatientNotFoundException(message: String) : RuntimeException(message)
@@ -59,6 +77,10 @@ class WrongPatientDataException(val messages: List<String>) : RuntimeException()
 class DoctorNotFoundException(message: String) : RuntimeException(message)
 class DoctorNotCreatedException(message: String) : RuntimeException(message)
 class WrongDoctorDataException(val messages: List<String>) : RuntimeException()
+class DoctorUnavailableAtThisTime(message: String) : RuntimeException(message)
+
+class VisitNotCreatedException(message: String) : RuntimeException(message)
+class VisitNotUpdatedException(message: String) : RuntimeException(message)
 
 
 

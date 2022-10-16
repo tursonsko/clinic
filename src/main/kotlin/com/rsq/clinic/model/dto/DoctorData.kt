@@ -2,15 +2,16 @@ package com.rsq.clinic.model.dto
 
 import com.rsq.clinic.advice.WrongDoctorDataException
 import com.rsq.clinic.model.entity.Doctor
+import com.rsq.clinic.model.entity.Visit
 import com.rsq.clinic.utils.containsForbiddenCharactersForData
 import com.rsq.clinic.utils.containsNoCharacters
 import java.util.*
 
 data class DoctorCreateRequest(
-    override val firstName: String,
-    override val lastName: String,
+    val firstName: String,
+    val lastName: String,
     val specialization: String
-) : PersonCreateRequest {
+) {
 
     fun toDoctorEntity() =
         Doctor(
@@ -19,7 +20,7 @@ data class DoctorCreateRequest(
             specialization = specialization
         )
 
-    override fun checkRequestFields() {
+    fun checkRequestFields() {
         val errorList = mutableListOf<String>()
 
         if (firstName.containsForbiddenCharactersForData())
@@ -49,5 +50,6 @@ data class DoctorResponse(
     val id: UUID?,
     val firstName: String,
     val lastName: String,
-    val specialization: String
+    val specialization: String,
+    val visits: List<Visit>? = null
 )

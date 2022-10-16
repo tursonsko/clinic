@@ -38,6 +38,15 @@ class DoctorService(
         }
     }
 
+    //todo remove?
+    fun getDoctorWithVisitList(doctorId: UUID): DoctorResponse {
+        try {
+            return doctorRepository.findDoctorByIdWithVisits(doctorId).toDoctorDataWithVisits()
+        } catch (ex: Exception) {
+            throw DoctorNotFoundException("Doctor not found for provided ID")
+        }
+    }
+
     //todo remember about visits - lazy ex...
     fun getAllDoctors(pageNumber: Int, pageSize: Int): Page<DoctorResponse> {
         return doctorRepository.findAll(

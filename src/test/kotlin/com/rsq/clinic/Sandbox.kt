@@ -55,4 +55,11 @@ class Sandbox: FunSpec({
         nameWithForbiddenChars4.containsForbiddenCharactersForData() shouldBe false
     }
 
+/*    //sandbox
+
+    val doctorData = doctorService.getAllDoctors(0, 10).content
+        .flatMap { it.visits ?: listOf() }
+
+    //sandbox*/
+
 })

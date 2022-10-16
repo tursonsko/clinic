@@ -6,13 +6,8 @@ import java.util.*
 import javax.persistence.*
 
 @Table(name = "patient")
-@Entity
+@Entity(name = "patient")
 data class Patient(
-
-    @Id
-    @Column(name = "id", length = 16, unique = true, nullable = false)
-    @GeneratedValue
-    val id: UUID? = null,
 
     @Column(name = "first_name", nullable = false)
     val firstName: String,
@@ -23,10 +18,15 @@ data class Patient(
     @Column(name = "address", nullable = false)
     val address: String,
 
-    @OneToMany(cascade = [CascadeType.ALL], fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "patient", cascade = [CascadeType.REMOVE], fetch = FetchType.EAGER)
     val visits: List<Visit> = mutableListOf()
 
 ) {
+
+    @Id
+    @Column(name = "id", length = 16, unique = true, nullable = false)
+    @GeneratedValue
+    val id: UUID? = null
 
     fun toPatientData() =
         PatientResponse(

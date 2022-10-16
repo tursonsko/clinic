@@ -8,10 +8,10 @@ import com.rsq.clinic.utils.containsNoCharacters
 import java.util.*
 
 data class PatientCreateRequest(
-    override val firstName: String,
-    override val lastName: String,
+    val firstName: String,
+    val lastName: String,
     val address: String
-) : PersonCreateRequest {
+) {
 
     fun toPatientEntity() =
         Patient(
@@ -23,7 +23,7 @@ data class PatientCreateRequest(
     /**
      * @throws WrongPatientDataException
      */
-    override fun checkRequestFields() {
+    fun checkRequestFields() {
         val errorList = mutableListOf<String>()
 
         if (firstName.containsForbiddenCharactersForData())
