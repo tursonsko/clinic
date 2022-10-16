@@ -8,7 +8,10 @@ import javax.persistence.criteria.CriteriaQuery
 import javax.persistence.criteria.Predicate
 import javax.persistence.criteria.Root
 
-
+/**
+ * Specification used to pass filter with optional patientId
+ * in VisitService.getAllVisitsWithOptionalPatientId method
+ */
 fun getVisitWithOptionalPatientIdQuery(
     patientId: UUID?
 ): Specification<Visit> {

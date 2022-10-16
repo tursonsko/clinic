@@ -7,6 +7,9 @@ import com.rsq.clinic.utils.containsForbiddenCharactersForData
 import com.rsq.clinic.utils.containsNoCharacters
 import java.util.*
 
+/**
+ * Doctor DTO's
+ */
 data class DoctorCreateRequest(
     val firstName: String,
     val lastName: String,
@@ -20,6 +23,9 @@ data class DoctorCreateRequest(
             specialization = specialization
         )
 
+    /**
+     * Validator using functions from utils/Extensions.kt
+     */
     fun checkRequestFields() {
         val errorList = mutableListOf<String>()
 

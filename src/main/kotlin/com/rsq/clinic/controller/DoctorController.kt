@@ -10,11 +10,17 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
+/**
+ * Rest Controller for Doctor
+ */
 @RequestMapping("/api/doctor")
 @RestController
 class DoctorController(
     private val doctorService: DoctorService
 ) {
+    /**
+     * Endpoint to create single Doctor
+     */
     @PostMapping
     fun createDoctor(
         @RequestBody createRequest: DoctorCreateRequest
@@ -24,6 +30,9 @@ class DoctorController(
             HttpStatus.CREATED
         )
 
+    /**
+     * Endpoint to get single Doctor
+     */
     @GetMapping("/{doctorId}")
     fun getDoctor(
         @PathVariable doctorId: UUID
@@ -33,6 +42,9 @@ class DoctorController(
             HttpStatus.OK
         )
 
+    /**
+     * Endpoint to get all Doctors in Pages
+     */
     @GetMapping()
     fun getAllDoctors(
         @RequestParam(required = false, defaultValue = "0") pageNumber: Int,
@@ -43,6 +55,9 @@ class DoctorController(
             HttpStatus.OK
         )
 
+    /**
+     * Endpoint to edit single Doctor Data
+     */
     @PutMapping("/{doctorId}")
     fun updateDoctor(
         @PathVariable doctorId: UUID,
@@ -53,6 +68,9 @@ class DoctorController(
             HttpStatus.OK
         )
 
+    /**
+     * Endpoint to delete single Doctor by id
+     */
     @DeleteMapping("/{doctorId}")
     fun deleteDoctor(
         @PathVariable doctorId: UUID

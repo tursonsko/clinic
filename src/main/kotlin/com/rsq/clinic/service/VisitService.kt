@@ -17,6 +17,9 @@ import java.time.LocalDate
 import java.time.LocalTime
 import java.util.*
 
+/**
+ * Logic for Visit
+ */
 @Service
 class VisitService(
     private val visitRepository: VisitRepository,
@@ -26,10 +29,7 @@ class VisitService(
 
     /**
      * Method creating single Visit
-     * @return VisitResponse
-     * @throws VisitNotCreatedException
      */
-    @Throws(DoctorUnavailableAtThisTime::class)
     fun createVisit(
         createRequest: VisitCreateRequest,
         patientId: UUID,
@@ -47,6 +47,9 @@ class VisitService(
         }
     }
 
+    /**
+     * Method changing Visit Time
+     */
     fun changeVisitTime(
         updateRequest: VisitUpdateRequest
     ) {
@@ -67,6 +70,9 @@ class VisitService(
         }
     }
 
+    /**
+     * Method finding all Visits with optional parameter "patientId" to narrow searching
+     */
     fun getAllVisitsWithOptionalPatientId(
         patientId: UUID?,
         pageNumber: Int,
@@ -86,6 +92,9 @@ class VisitService(
         }
     }
 
+    /**
+     * Method to delete single Visit
+     */
     fun deleteVisit(visitId: UUID) =
         try {
             visitRepository.deleteById(visitId)
@@ -93,6 +102,9 @@ class VisitService(
             throw DeleteOperationException("Something went wrong while deleting visit")
         }
 
+    /**
+     * Validator to check if Doctor is available at provided Time during creating new Visit
+     */
     private fun checkDoctorAvailability(
         doctor: Doctor,
         visitDate: LocalDate,

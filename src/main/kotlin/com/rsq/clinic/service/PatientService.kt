@@ -13,6 +13,9 @@ import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import java.util.*
 
+/**
+ * Logic for Patient
+ */
 @Service
 class PatientService(
     private val patientRepository: PatientRepository
@@ -20,8 +23,6 @@ class PatientService(
 
     /**
      * Method creating single Patient
-     * @return PatientResponse
-     * @throws PatientNotCreatedException
      */
     fun createPatient(createRequest: PatientCreateRequest): PatientResponse {
         createRequest.checkRequestFields()
@@ -32,6 +33,9 @@ class PatientService(
         }
     }
 
+    /**
+     * Method finding single Patient
+     */
     fun getPatient(patientId: UUID): PatientResponse {
         try {
             return patientRepository.findPatientById(patientId).toPatientData()
@@ -40,6 +44,9 @@ class PatientService(
         }
     }
 
+    /**
+     * Method finding all Patients in Pages
+     */
     fun getAllPatients(pageNumber: Int, pageSize: Int): Page<PatientResponse> {
         return patientRepository.findAll(
             PageRequest.of(
@@ -50,6 +57,9 @@ class PatientService(
         ).map { it.toPatientData() }
     }
 
+    /**
+     * Method updating single Patient
+     */
     fun updatePatient(patientId: UUID, updateRequest: PatientUpdateRequest): PatientResponse {
         try {
             return patientRepository.findPatientById(patientId).let {
@@ -67,6 +77,9 @@ class PatientService(
 
     }
 
+    /**
+     * Method deleting single Patient
+     */
     fun deletePatient(patientId: UUID) {
         try {
             patientRepository.deleteById(patientId)

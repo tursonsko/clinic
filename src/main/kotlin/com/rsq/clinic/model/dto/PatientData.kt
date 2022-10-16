@@ -21,7 +21,7 @@ data class PatientCreateRequest(
         )
 
     /**
-     * @throws WrongPatientDataException
+     * Validator using functions from utils/Extensions.kt
      */
     fun checkRequestFields() {
         val errorList = mutableListOf<String>()

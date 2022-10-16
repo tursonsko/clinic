@@ -6,6 +6,9 @@ import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import java.time.Instant
 
+/**
+ * Custom Exceptions Handler with prepared error models
+ */
 @ControllerAdvice
 class ExceptionControllerAdvice {
 
@@ -96,7 +99,6 @@ class VisitNotCreatedException(message: String) : RuntimeException(message)
 class VisitNotUpdatedException(message: String) : RuntimeException(message)
 
 class DeleteOperationException(message: String) : RuntimeException(message)
-
 
 
 data class ErrorSingleMessageModel(

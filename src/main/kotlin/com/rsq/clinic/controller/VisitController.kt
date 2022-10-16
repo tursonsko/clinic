@@ -10,12 +10,18 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
+/**
+ * Rest Controller for Visit
+ */
 @RequestMapping("/api/visit")
 @RestController
 class VisitController(
     private val visitService: VisitService
 ) {
 
+    /**
+     * Endpoint to create single Visit
+     */
     @PostMapping
     fun createVisit(
         @RequestParam patientId: UUID,
@@ -27,6 +33,9 @@ class VisitController(
             HttpStatus.CREATED
         )
 
+    /**
+     * Endpoint to change Visit Time
+     */
     @PutMapping("/changeTime")
     fun changeVisitTime(
         @RequestBody updateRequest: VisitUpdateRequest
@@ -36,6 +45,10 @@ class VisitController(
 
     }
 
+    /**
+     * Endpoint to get all Visits
+     * and all Visits for specific PatientId as optional paramater
+     */
     @GetMapping
     fun getAllVisitsWithOptionalPatientId(
         @RequestParam(required = false) patientId: UUID?,
@@ -48,7 +61,9 @@ class VisitController(
         )
 
 
-
+    /**
+     * Endpoint to delete single Visit by id
+     */
     @DeleteMapping("/{visitId}")
     fun deleteVisit(
         @PathVariable visitId: UUID
