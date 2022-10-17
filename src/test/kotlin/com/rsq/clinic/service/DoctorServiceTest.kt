@@ -2,19 +2,20 @@ package com.rsq.clinic.service
 
 import com.rsq.clinic.advice.WrongDoctorDataException
 import com.rsq.clinic.model.dto.DoctorCreateRequest
+import com.rsq.clinic.model.dto.DoctorUpdateRequest
 import com.rsq.clinic.model.entity.Doctor
 import com.rsq.clinic.repository.DoctorRepository
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
-import io.mockk.every
-import io.mockk.mockk
-import io.mockk.verify
+import io.mockk.*
+import java.util.*
 
 class DoctorServiceTest : BehaviorSpec({
 
     val repository = mockk<DoctorRepository>(relaxed = true)
     var doctor = mockk<Doctor>(relaxed = true)
     var doctorCreateRequest = mockk<DoctorCreateRequest>(relaxed = true)
+    var doctorUpdateRequest = mockk<DoctorUpdateRequest>(relaxed = true)
     val service = DoctorService(repository)
 
     beforeTest {
@@ -23,6 +24,9 @@ class DoctorServiceTest : BehaviorSpec({
             firstName = "Ryan",
             lastName = "Reynolds",
             specialization = "Spec"
+        )
+        doctorUpdateRequest = DoctorUpdateRequest(
+            specialization = "New Spec"
         )
     }
 
@@ -45,6 +49,17 @@ class DoctorServiceTest : BehaviorSpec({
         `when`("trying to create new Doctor") {
             service.createDoctor(doctorCreateRequest)
             then("throw WrongDoctorDataException") {
+                verify(exactly = 1) {repository.save(doctor)}
+            }
+        }
+    }
+
+    given("proper DoctorUpdateRequest data") {
+        every { repository.save(doctor) } returns doctor
+        every { repository.findDoctorById(any()) } returns doctor
+        `when`("trying to update Doctor") {
+            service.updateDoctor(UUID.randomUUID(), doctorUpdateRequest)
+            then("save updated Doctor") {
                 verify(exactly = 1) {repository.save(doctor)}
             }
         }
