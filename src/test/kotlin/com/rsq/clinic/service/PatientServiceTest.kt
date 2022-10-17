@@ -4,14 +4,12 @@ import com.rsq.clinic.advice.WrongPatientDataException
 import com.rsq.clinic.model.dto.PatientCreateRequest
 import com.rsq.clinic.model.entity.Patient
 import com.rsq.clinic.repository.PatientRepository
-import io.kotest.assertions.any
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
-import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.shouldBe
-import io.mockk.*
-import org.springframework.data.domain.Page
+import io.mockk.every
+import io.mockk.mockk
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import java.util.*
@@ -19,14 +17,13 @@ import java.util.*
 class PatientServiceTest : BehaviorSpec({
 
     val repository = mockk<PatientRepository>(relaxed = true)
-//    val patients: Page<Patient> = mockkClass(Page::class) as Page<Patient>
     val service = PatientService(repository)
 
     given("wrong PatientCreateRequest data") {
         val request = PatientCreateRequest(
-            "   ",
-            "Turek",
-            "Address 1/30 80-462"
+            firstName = "   ",
+            lastName = "Turek",
+            address = "Address 1/30 80-462"
         )
         `when`("trying to create new Patient") {
             then("throw WrongPatientDataException") {
