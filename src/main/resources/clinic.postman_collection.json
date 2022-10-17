@@ -1,0 +1,402 @@
+{
+	"info": {
+		"_postman_id": "732b1dd7-b3d9-4876-8574-546df75a8647",
+		"name": "clinic",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13222880"
+	},
+	"item": [
+		{
+			"name": "patient",
+			"item": [
+				{
+					"name": "create patient",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Pacjent\",\r\n    \"lastName\": \"Testowy\",\r\n    \"address\": \"Walbrzych\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/patient/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"patient",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get patient",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/patient/b8091f79-1b08-4bfa-b5f8-1d838efa511f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"patient",
+								"b8091f79-1b08-4bfa-b5f8-1d838efa511f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update patient",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Rafael\",\r\n    \"lastName\": \"Leao\",\r\n    \"address\": \"AC Milan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/patient/b8091f79-1b08-4bfa-b5f8-1d838efa511f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"patient",
+								"b8091f79-1b08-4bfa-b5f8-1d838efa511f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete patient",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/patient/42d3bac7-f2d7-4007-81da-0565c59760d8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"patient",
+								"42d3bac7-f2d7-4007-81da-0565c59760d8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get All patients",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "doctor",
+			"item": [
+				{
+					"name": "create doctor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Lekarza\",\r\n    \"lastName\": \"Testowy\",\r\n    \"specialization\": \"Chirurg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/doctor/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"doctor",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get doctor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/doctor/b8091f79-1b08-4bfa-b5f8-1d838efa511f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"doctor",
+								"b8091f79-1b08-4bfa-b5f8-1d838efa511f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update doctor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Rafael\",\r\n    \"lastName\": \"Leao\",\r\n    \"address\": \"AC Milan\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/doctor/b8091f79-1b08-4bfa-b5f8-1d838efa511f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"doctor",
+								"b8091f79-1b08-4bfa-b5f8-1d838efa511f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete doctor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/doctor/42d3bac7-f2d7-4007-81da-0565c59760d8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"doctor",
+								"42d3bac7-f2d7-4007-81da-0565c59760d8"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get All doctors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/doctor?pageSize=10&pageNumber=0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"doctor"
+							],
+							"query": [
+								{
+									"key": "pageSize",
+									"value": "10"
+								},
+								{
+									"key": "pageNumber",
+									"value": "0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "visit",
+			"item": [
+				{
+					"name": "create visit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"visitDate\": \"20-10-2022\",\r\n    \"visitTime\": \"17:30\",\r\n    \"spot\": \"Clinic Luxmed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/visit?patientId=2cd7a392-5ffb-44e9-95b3-559a4f34ce9a&doctorId=6ec833e7-2bfc-43b2-b743-fe4953b5d2a7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"visit"
+							],
+							"query": [
+								{
+									"key": "patientId",
+									"value": "2cd7a392-5ffb-44e9-95b3-559a4f34ce9a"
+								},
+								{
+									"key": "doctorId",
+									"value": "6ec833e7-2bfc-43b2-b743-fe4953b5d2a7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update visit time",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"visitId\": \"02866ee0-d364-4feb-a58c-cd14af8a4dc3\",\r\n    \"visitDate\": \"20-10-2022\",\r\n    \"visitTime\": \"17:30\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/visit/changeTime",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"visit",
+								"changeTime"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete visit",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"visitDate\": \"20-10-2022\",\r\n    \"visitTime\": \"17:30\",\r\n    \"spot\": \"Clinic Luxmed\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8081/api/visit?patientId=2cd7a392-5ffb-44e9-95b3-559a4f34ce9a&doctorId=6ec833e7-2bfc-43b2-b743-fe4953b5d2a7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"visit"
+							],
+							"query": [
+								{
+									"key": "patientId",
+									"value": "2cd7a392-5ffb-44e9-95b3-559a4f34ce9a"
+								},
+								{
+									"key": "doctorId",
+									"value": "6ec833e7-2bfc-43b2-b743-fe4953b5d2a7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find all visits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8081/api/visit/?patientId=defb2ed7-ea8f-4703-bb7a-a11b99b12e25",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"visit",
+								""
+							],
+							"query": [
+								{
+									"key": "patientId",
+									"value": "defb2ed7-ea8f-4703-bb7a-a11b99b12e25"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
