@@ -61,7 +61,6 @@ class PatientServiceTest : BehaviorSpec({
     }
 
     given("no pageSize and no pageNumber") {
-        val patient = Patient("W", "T", "Addr")
         val patients = PageImpl(mutableListOf(patient))
         every { repository.findAll(any<Pageable>()) } returns patients
         `when`("trying to get All Patients form database") {
