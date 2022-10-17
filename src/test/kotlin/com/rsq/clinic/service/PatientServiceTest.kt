@@ -1,18 +1,17 @@
 package com.rsq.clinic.service
 
 import com.rsq.clinic.advice.WrongPatientDataException
-import com.rsq.clinic.model.dto.DoctorCreateRequest
-import com.rsq.clinic.model.dto.DoctorUpdateRequest
 import com.rsq.clinic.model.dto.PatientCreateRequest
 import com.rsq.clinic.model.dto.PatientUpdateRequest
-import com.rsq.clinic.model.entity.Doctor
 import com.rsq.clinic.model.entity.Patient
 import com.rsq.clinic.repository.PatientRepository
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.BehaviorSpec
 import io.kotest.matchers.ints.shouldBeExactly
 import io.kotest.matchers.shouldBe
-import io.mockk.*
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import org.springframework.data.domain.PageImpl
 import org.springframework.data.domain.Pageable
 import java.util.*
